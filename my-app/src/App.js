@@ -1,9 +1,12 @@
-import './App.css';
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
-import Header from './components/Header';
-import { AppContext } from './context/contextApi';
-import ErrorComponent from './shared/ErrorComponent';
+import React from "react";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { AppContext } from "./context/contextApi";
 
+import Header from "./components/Header";
+import Feed from "./pages/Feed";
+import SearchResult from "./pages/SearchResult";
+import VideoDetails from "./pages/VideoDetails";
+import ErrorComponent from "./shared/ErrorComponent";
 
 const AppLayout = () => {
   return (
@@ -20,7 +23,9 @@ const appRouter = createBrowserRouter([
     element: <AppLayout />,
     errorElement: <ErrorComponent />,
     children: [
-      
+      { path: "/", element: <Feed /> },
+      { path: "/searchResult/:searchQuery", element: <SearchResult /> },
+      { path: "/video/:id", element: <VideoDetails /> },
     ],
   },
 ]);
@@ -28,7 +33,7 @@ const appRouter = createBrowserRouter([
 function App() {
   return (
     <AppContext>
-      <div className='flex flex-col h-full'>
+      <div className="flex flex-col h-full">
         <RouterProvider router={appRouter} />
       </div>
     </AppContext>
